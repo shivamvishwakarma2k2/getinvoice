@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // Set default date to today
 const today = new Date().toISOString().split('T')[0];
 document.getElementById("invoiceDate").value = today;
@@ -23,20 +24,45 @@ function updateRowNumbers() {
     rows.forEach((row, index) => {
         row.cells[0].textContent = index + 1;
     });
+=======
+document.getElementById("currentDate").textContent = formatDate(
+    new Date()
+);
+
+let rowCount = 0;
+
+// Function to format date as dd/mm/yy
+function formatDate(date) {
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = String(date.getFullYear()).slice(-2);
+    return `${day}/${month}/20${year}`;
+>>>>>>> 957435ccf6eeaa75c12c973004d2f3d07068a042
 }
 
 // Function to add a new row
 function addNewRow() {
+<<<<<<< HEAD
     const tbody = document.querySelector("#invoiceTable tbody");
     const rowNumber = tbody.children.length + 1;
     const row = document.createElement("tr");
     row.innerHTML = `
         <td class="text-center">${rowNumber}</td>
+=======
+    rowCount++;
+    const tbody = document.querySelector("#invoiceTable tbody");
+    const row = document.createElement("tr");
+    row.innerHTML = `
+        <td class="text-center">${rowCount}</td>
+>>>>>>> 957435ccf6eeaa75c12c973004d2f3d07068a042
         <td><input type="text" class="form-control particulars" required></td>
         <td><input type="number" class="form-control quantity" step="0.01" min="0"></td>
         <td><input type="number" class="form-control rate" step="0.01" min="0"></td>
         <td><input type="number" class="form-control amount"></td>
+<<<<<<< HEAD
         <td><button class="btn btn-danger btn-sm" onclick="deleteRow(this)">Delete</button></td>
+=======
+>>>>>>> 957435ccf6eeaa75c12c973004d2f3d07068a042
     `;
     tbody.appendChild(row);
 
@@ -60,9 +86,15 @@ function addNewRow() {
 
 // Function to handle row input changes
 function handleRowInput(row) {
+<<<<<<< HEAD
     let quantity =
         Math.max(0, parseFloat(row.querySelector(".quantity").value) || 0);
     let rate = Math.max(0, parseFloat(row.querySelector(".rate").value) || 0);
+=======
+    const quantity =
+        parseFloat(row.querySelector(".quantity").value) || 0;
+    const rate = parseFloat(row.querySelector(".rate").value) || 0;
+>>>>>>> 957435ccf6eeaa75c12c973004d2f3d07068a042
     const amountInput = row.querySelector(".amount");
 
     // If BOTH quantity and rate are empty, allow editing amount
@@ -84,11 +116,19 @@ function updateGrandTotal() {
     const amounts = document.querySelectorAll(".amount");
     let total = 0;
     amounts.forEach((input) => {
+<<<<<<< HEAD
         total += Math.max(0, parseFloat(input.value) || 0);
     });
 
     const deduction =
         Math.max(0, parseFloat(document.getElementById("deduction").value) || 0);
+=======
+        total += parseFloat(input.value) || 0;
+    });
+
+    const deduction =
+        parseFloat(document.getElementById("deduction").value) || 0;
+>>>>>>> 957435ccf6eeaa75c12c973004d2f3d07068a042
     document.getElementById(
         "grandTotal"
     ).textContent = `₹${total.toFixed(2)}`;
@@ -103,11 +143,16 @@ document
     .addEventListener("input", updateGrandTotal);
 
 // Function to generate PDF
+<<<<<<< HEAD
 async function generatePDF() {
+=======
+function generatePDF() {
+>>>>>>> 957435ccf6eeaa75c12c973004d2f3d07068a042
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
     doc.setFont("times");
+<<<<<<< HEAD
     doc.setTextColor(0, 0, 0);
 
     doc.setFontSize(12);
@@ -117,11 +162,26 @@ async function generatePDF() {
     doc.setFontSize(26);
     doc.setTextColor(220, 53, 69); // Red color
     doc.text(config.companyName, 105, 25, { align: "center" });
+=======
+    doc.setTextColor(0, 0, 0); 
+
+    doc.setFontSize(12);
+    doc.setFont("times", "bold");
+    doc.text("Mobile: 9867924687", 190, 15, { align: "right" });
+
+    doc.setFontSize(26);
+    doc.setTextColor(220, 53, 69); // Red color
+    doc.text("SHIVAM FURNITURE", 105, 25, { align: "center" });
+>>>>>>> 957435ccf6eeaa75c12c973004d2f3d07068a042
 
     doc.setFontSize(13);
     doc.setTextColor(0, 0, 0); // Dark blue
     doc.text(
+<<<<<<< HEAD
         config.specialties,
+=======
+        "Specialists: Furniture, Aluminum Sliding, Painting, POP, Polish & All kinds of Civil Work",
+>>>>>>> 957435ccf6eeaa75c12c973004d2f3d07068a042
         105,
         35,
         { align: "center" }
@@ -134,7 +194,11 @@ async function generatePDF() {
 
     // Address Line (Dark Blue)
     doc.setFontSize(12);
+<<<<<<< HEAD
     doc.text(config.address, 105, 47, {
+=======
+    doc.text("Shiv Chatrapati Chawl, Surya Nagar, Near Police Station, Vikhroli West, Mumbai-400083", 105, 47, {
+>>>>>>> 957435ccf6eeaa75c12c973004d2f3d07068a042
         align: "center"
     });
 
@@ -143,9 +207,13 @@ async function generatePDF() {
 
     // Date (Right Aligned - Dark Blue)
     doc.setTextColor(0, 0, 0); // Dark blue
+<<<<<<< HEAD
     const selectedDate = document.getElementById("invoiceDate").value;
     const dateObj = selectedDate ? new Date(selectedDate) : new Date();
     doc.text(`Date: ${formatDate(dateObj)}`, 190, 60, { align: "right" });
+=======
+    doc.text(`Date: ${formatDate(new Date())}`, 190, 60, { align: "right" });
+>>>>>>> 957435ccf6eeaa75c12c973004d2f3d07068a042
 
     // Add a bit of space after the date
     doc.text(" ", 105, 50);
@@ -199,6 +267,7 @@ async function generatePDF() {
                 colSpan: 4,
                 styles: { halign: "right", fontStyle: "bold" },
             },
+<<<<<<< HEAD
             `${(parseFloat(document.getElementById("deduction").value) || 0).toFixed(2)}`,
         ]);
 
@@ -212,6 +281,20 @@ async function generatePDF() {
             .getElementById("netTotal")
             .textContent.replace("₹", "")}`,
     ]
+=======
+            `${document.getElementById("deduction").value}`,
+        ],
+        [
+            {
+                content: "Final Payable",
+                colSpan: 4,
+                styles: { halign: "right", fontStyle: "bold" },
+            },
+            `${document
+                .getElementById("netTotal")
+                .textContent.replace("₹", "")}`,
+        ]
+>>>>>>> 957435ccf6eeaa75c12c973004d2f3d07068a042
     );
 
     // Table styling
@@ -257,21 +340,30 @@ async function generatePDF() {
             3: { cellWidth: 28 },
             4: { cellWidth: 36 },
         },
+<<<<<<< HEAD
         margin: { top: 70, left: 15, right: 15, bottom: 20 },
         tableWidth: "auto",
+=======
+        margin: { horizontal: 5 },
+>>>>>>> 957435ccf6eeaa75c12c973004d2f3d07068a042
         didDrawPage: (data) => {
             // Add page number in footer
             const pageCount = doc.internal.getNumberOfPages();
             doc.setFontSize(10);
             doc.text(
                 `Page ${data.pageNumber} of ${pageCount}`,
+<<<<<<< HEAD
                 doc.internal.pageSize.width / 2,
+=======
+                105,
+>>>>>>> 957435ccf6eeaa75c12c973004d2f3d07068a042
                 doc.internal.pageSize.height - 10,
                 { align: "center" }
             );
         },
     });
 
+<<<<<<< HEAD
     // Add signature image and thank you message
     const finalY = doc.lastAutoTable.finalY + 20; // Position after table
 
@@ -329,6 +421,10 @@ async function generatePDF() {
 
     // Save the PDF
     doc.save(filename);
+=======
+    // Save the PDF with a filename
+    doc.save(`invoice_${new Date().getTime()}.pdf`);
+>>>>>>> 957435ccf6eeaa75c12c973004d2f3d07068a042
 }
 
 // Add initial row
